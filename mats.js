@@ -3,7 +3,6 @@
 import { NativeModules } from 'react-native';
 
 const  { RNOpencv3 } = NativeModules;
-import { CvType } from './constants';
 
 export class Mat {
   constructor(numRows, numCols, cvtype, scalarval) {
