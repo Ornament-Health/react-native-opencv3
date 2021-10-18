@@ -10,7 +10,6 @@ import { NativeModules } from 'react-native';
 import React, {Component} from 'react';
 import { Platform, Image } from 'react-native';
 const  { RNOpencv3 } = NativeModules;
-import { ColorConv } from './constants';
 
 var RNFS = require('react-native-fs')
 
