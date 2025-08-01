@@ -48,6 +48,8 @@
 
 -(void)deleteMats;
 
+- (int)crop:(int)matIndex withX:(int)x withY:(int)y withWidth:(int)width withHeight:(int)height;
+
 @end
 
 #endif

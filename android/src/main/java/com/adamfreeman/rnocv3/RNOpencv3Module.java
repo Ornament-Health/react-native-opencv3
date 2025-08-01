@@ -242,6 +242,11 @@ public class RNOpencv3Module extends ReactContextBaseJavaModule {
         result.putInt("matIndex", matIndex);
         promise.resolve(result);
     }
+
+    @ReactMethod
+    public void crop(ReadableMap mat, int x, int y, int width, int height) {
+        MatManager.getInstance().crop(mat.getInt("matIndex"), x, y, width, height);
+    }
 	
 	
 }

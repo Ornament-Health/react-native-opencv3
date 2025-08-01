@@ -168,4 +168,26 @@ RCT_EXPORT_METHOD(deleteMats) {
     [MatManager.sharedMgr deleteMats];
 }
 
+RCT_EXPORT_METHOD(crop:(int)matIndex withX:(int)x withY:(int)y withWidth:(int)width withHeight:(int)height andResolve:(RCTPromiseResolveBlock)resolve andReject:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        // Call the new instance method on the singleton
+        int newMatIndex = [[MatManager getInstance] crop:matIndex withX:x withY:y withWidth:width withHeight:height];
+
+        if (newMatIndex >= 0) {
+            // Return the index of the newly created cropped Mat
+            resolve(@{@"matIndex": @(newMatIndex)});
+        } else {
+            reject(@"E_CV_CROP_ERROR", @"Failed to crop. Source matrix not found.", nil);
+        }
+    }
+    @catch (cv::Exception& e) {
+        // Catch potential OpenCV errors (e.g., if the ROI is out of bounds)
+        reject(@"E_CV_CROP_ERROR", [NSString stringWithUTF8String:e.what()], nil);
+    }
+    @catch (NSException *exception) {
+        reject(@"E_CV_CROP_ERROR", [exception reason], nil);
+    }
+}
+
 @end

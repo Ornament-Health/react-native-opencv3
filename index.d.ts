@@ -120,6 +120,8 @@ export class Mat {
   );
   init(): Promise<MatRef>;
   setTo(color: CvScalar): void;
+  t(): void;
+  crop(x: int, y: int, width: int, heigth: int): void;
 }
 
 export class MatOfInt {
