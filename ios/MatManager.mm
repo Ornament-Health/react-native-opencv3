@@ -221,4 +221,33 @@
     self.mats = nil;
 }
 
+- (int)crop:(int)matIndex withX:(int)x withY:(int)y withWidth:(int)width withHeight:(int)height {
+    // Retrieve the source matrix using the instance method
+    cv::Mat *sourceMat = (cv::Mat *)[self matAtIndex:matIndex];
+
+    // It's good practice to check if the mat exists
+    if (!sourceMat) {
+        // Or throw an exception
+        return -1;
+    }
+    
+    // Define the rectangle for cropping (Region of Interest)
+    cv::Rect roi(x, y, width, height);
+
+    // Create a new Mat header for the ROI
+    cv::Mat croppedRegion = (*sourceMat)(roi);
+
+    // The library's pattern is to store heap-allocated cv::Mat pointers.
+    // We must create a new Mat on the heap and make a deep copy
+    // of the cropped region to ensure it has its own data.
+    cv::Mat *matToAdd = new cv::Mat();
+    croppedRegion.copyTo(*matToAdd);
+
+    // Add the new matrix to the vector
+    [self addMat:matToAdd];
+    
+    // The new matrix is at the end of the vector, so its index is size() - 1.
+    return (int)mats.size() - 1;
+}
+
 @end

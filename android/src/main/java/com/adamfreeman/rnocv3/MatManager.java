@@ -182,4 +182,21 @@ class MatManager {
         }
         mats.clear();
     }
+
+    public static int crop(int matIndex, int x, int y, int width, int height) {
+        Mat sourceMat = (Mat)matAtIndex(matIndex);
+        if (sourceMat == null) {
+            // Or handle the error in a way that makes sense for your app
+            return -1;
+        }
+
+        // Define the rectangle for cropping
+        Rect roi = new Rect(x, y, width, height);
+
+        // Create the cropped matrix
+        Mat croppedMat = new Mat(sourceMat, roi);
+
+        // Add the new matrix to the manager and return its index
+        return addMat(croppedMat);
+    }
 }

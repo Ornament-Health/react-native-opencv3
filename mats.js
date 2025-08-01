@@ -54,6 +54,10 @@ export class Mat {
   t = () => {
     RNOpencv3.transpose(this)
   }
+
+  crop = (x, y, width, heigth) => {
+    RNOpencv3.crop(this, x, y, width, heigth)
+  }
 }
 
 export class MatOfInt {
